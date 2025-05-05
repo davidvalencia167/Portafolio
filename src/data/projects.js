@@ -7,13 +7,13 @@ const projects = [
       title: "AluraGeek",
       description: "AluraGeek is a web application that allows users to interactively add, view, and remove products from a listing.",
       image: alurageekImg,
-      link: "#"
+      link: "https://github.com/davidvalencia167/alurageek_project"
     },
     {
       title: "AluraFlix",
       description: "AluraFlix is ​​a streaming-inspired web application designed for managing and browsing multimedia content.",
       image: aluraflixImg,
-      link: "#"
+      link: "https://github.com/davidvalencia167/AluraFlix"
     }
   ];
 
