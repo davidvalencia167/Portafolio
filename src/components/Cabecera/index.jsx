@@ -11,6 +11,14 @@ const HeaderWrapper = styled.header`
   justify-content: space-between;
   align-items: center;
   z-index: 10;
+
+  @media (max-width: 992px) {
+    padding: 20px 60px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 15px 40px;
+  }
 `;
 
 const TitleLink = styled(Link)`
@@ -22,11 +30,23 @@ const Title = styled.h1`
   font-family: 'Comfortaa', sans-serif;
   font-size: 24px;
   color: #25282b;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
 const Nav = styled.nav`
   display: flex;
   gap: 48px;
+
+  @media (max-width: 992px) {
+    gap: 24px;
+  }
+
+  @media (max-width: 768px) {
+    gap: 20px;
+  }
 `;
 
 const NavItem = styled.a`
@@ -34,6 +54,11 @@ const NavItem = styled.a`
   font-size: 18px;
   color: #25282b;
   text-decoration: none;
+  white-space: nowrap;
+
+  @media (max-width: 992px) {
+    font-size: 16px;
+  }
 `;
 
 const NavLink = styled(Link)`
@@ -41,14 +66,18 @@ const NavLink = styled(Link)`
   font-size: 18px;
   color: #25282b;
   text-decoration: none;
+  white-space: nowrap;
+
+  @media (max-width: 992px) {
+    font-size: 16px;
+  }
 `;
 
 const Cabecera = () => {
-
   return (
     <HeaderWrapper>
       <TitleLink to="/">
-          <Title>David Santiago</Title>
+        <Title>David Santiago</Title>
       </TitleLink>
       <Nav>
         <NavLink to="/About">About</NavLink>
