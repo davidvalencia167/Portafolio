@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 import projects from "../../data/projects";
 const ProjectsSection = styled.section`
   text-align: center;
@@ -10,6 +11,14 @@ const ProjectsSection = styled.section`
 
   @media (max-width: 768px) {
     padding: 50px 20px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 40px 16px;
+  }
+  
+  @media (max-width: 360px) {
+    padding: 30px 12px;
   }
 `;
 
@@ -27,6 +36,14 @@ const SectionTitle = styled.h2`
   @media (max-width: 768px) {
     font-size: 28px;
   }
+  
+  @media (max-width: 480px) {
+    font-size: 24px;
+  }
+  
+  @media (max-width: 360px) {
+    font-size: 22px;
+  }
 `;
 
 const Underline = styled.div`
@@ -38,6 +55,17 @@ const Underline = styled.div`
 
   @media (max-width: 768px) {
     margin-bottom: 40px;
+  }
+  
+  @media (max-width: 480px) {
+    width: 50px;
+    height: 3px;
+    margin-bottom: 30px;
+  }
+  
+  @media (max-width: 360px) {
+    width: 40px;
+    margin-bottom: 25px;
   }
 `;
 
@@ -65,6 +93,20 @@ const ProjectCard = styled.div`
     padding: 35px 25px;
     gap: 30px;
     margin-bottom: 35px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 25px 20px;
+    gap: 25px;
+    margin-bottom: 30px;
+    border-radius: 18px;
+  }
+  
+  @media (max-width: 360px) {
+    padding: 20px 15px;
+    gap: 20px;
+    margin-bottom: 25px;
+    border-radius: 16px;
   }
 `;
 
@@ -95,6 +137,16 @@ const ProjectTitle = styled.h3`
   @media (max-width: 768px) {
     font-size: 24px;
   }
+  
+  @media (max-width: 480px) {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+  
+  @media (max-width: 360px) {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
 `;
 
 const ProjectDescription = styled.p`
@@ -106,6 +158,17 @@ const ProjectDescription = styled.p`
   @media (max-width: 992px) {
     font-size: 15px;
     margin-bottom: 20px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 14px;
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+  
+  @media (max-width: 360px) {
+    font-size: 13px;
+    margin-bottom: 16px;
   }
 `;
 
@@ -129,6 +192,20 @@ const ButtonView = styled.div`
     @media (max-width: 768px) {
       padding: 10px 20px;
     }
+    
+    @media (max-width: 480px) {
+      padding: 8px 18px;
+      font-size: 14px;
+    }
+    
+    @media (max-width: 360px) {
+      padding: 7px 16px;
+      font-size: 13px;
+      display: block;
+      text-align: center;
+      max-width: 200px;
+      margin: 0 auto;
+    }
   }
 `;
 
@@ -141,6 +218,17 @@ const ImageContent = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
+    min-width: 250px;
+  }
+  
+  @media (max-width: 480px) {
+    min-width: 0;
+    border-radius: 18px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+  }
+  
+  @media (max-width: 360px) {
+    border-radius: 16px;
   }
 `;
 
@@ -155,9 +243,47 @@ const ImageStyled = styled.img`
   &:hover {
     transform: scale(1.02);
   }
+  
+  @media (max-width: 480px) {
+    border-radius: 18px;
+    transform: scale(1);
+    
+    &:hover {
+      transform: scale(1.01);
+    }
+  }
+  
+  @media (max-width: 360px) {
+    border-radius: 16px;
+  }
 `;
 
 const Proyectos = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 480);
+    };
+    
+    // Verificación inicial
+    handleResize();
+    
+    // Escuchar cambios de tamaño de ventana
+    window.addEventListener('resize', handleResize);
+    
+    // Limpieza
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Función para acortar descripciones en móviles si son muy largas
+  const getOptimizedDescription = (description) => {
+    if (isMobile && description.length > 100) {
+      return description.substring(0, 97) + '...';
+    }
+    return description;
+  };
+
   return (
     <ProjectsSection id="projects">
       <SectionTitle>Projects</SectionTitle>
@@ -167,14 +293,20 @@ const Proyectos = () => {
         <ProjectCard key={index}>
           <TextContent>
             <ProjectTitle>{project.title}</ProjectTitle>
-            <ProjectDescription>{project.description}</ProjectDescription>
+            <ProjectDescription>
+              {getOptimizedDescription(project.description)}
+            </ProjectDescription>
             <ButtonView>
               <a href={project.link}>View Project</a>
             </ButtonView>
           </TextContent>
     
           <ImageContent>
-            <ImageStyled src={project.image} alt={project.title} />
+            <ImageStyled 
+              src={project.image} 
+              alt={project.title} 
+              loading="lazy" 
+            />
           </ImageContent>
         </ProjectCard>
       ))}

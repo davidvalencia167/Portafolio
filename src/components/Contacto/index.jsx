@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 
 const ContactsSection = styled.section`
   text-align: center;
@@ -12,7 +13,14 @@ const ContactsSection = styled.section`
   @media (max-width: 768px) {
     padding: 70px 20px;
   }
-
+  
+  @media (max-width: 480px) {
+    padding: 60px 16px;
+  }
+  
+  @media (max-width: 360px) {
+    padding: 50px 12px;
+  }
 `;
 
 const ContactTitle = styled.h2`
@@ -29,7 +37,14 @@ const ContactTitle = styled.h2`
   @media (max-width: 768px) {
     font-size: 28px;
   }
-
+  
+  @media (max-width: 480px) {
+    font-size: 24px;
+  }
+  
+  @media (max-width: 360px) {
+    font-size: 22px;
+  }
 `;
 
 const Underline = styled.div`
@@ -46,6 +61,17 @@ const Underline = styled.div`
   @media (max-width: 768px) {
     margin-bottom: 40px;
     width: 50px;
+  }
+  
+  @media (max-width: 480px) {
+    margin-bottom: 30px;
+    width: 40px;
+    height: 3px;
+  }
+  
+  @media (max-width: 360px) {
+    margin-bottom: 25px;
+    width: 35px;
   }
 `;
 
@@ -66,7 +92,18 @@ const FormWrapper = styled.div`
     padding: 25px;
     max-width: 400px;
   }
-
+  
+  @media (max-width: 480px) {
+    padding: 20px;
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+  }
+  
+  @media (max-width: 360px) {
+    padding: 16px;
+    border-radius: 10px;
+  }
 `;
 
 const FormGroup = styled.div`
@@ -75,6 +112,14 @@ const FormGroup = styled.div`
 
   @media (max-width: 992px) {
     margin-bottom: 20px;
+  }
+  
+  @media (max-width: 480px) {
+    margin-bottom: 16px;
+  }
+  
+  @media (max-width: 360px) {
+    margin-bottom: 14px;
   }
 `;
 
@@ -89,6 +134,11 @@ const Label = styled.label`
   @media (max-width: 768px) {
     font-size: 13px;
     margin-bottom: 6px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 12px;
+    margin-bottom: 5px;
   }
 `;
 
@@ -115,6 +165,17 @@ const Input = styled.input`
 
   @media (max-width: 768px) {
     padding: 10px 12px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 9px 10px;
+    font-size: 13px;
+    border-radius: 6px;
+  }
+  
+  @media (max-width: 360px) {
+    padding: 8px;
+    font-size: 12px;
   }
 `;
 
@@ -145,6 +206,19 @@ const Textarea = styled.textarea`
   @media (max-width: 768px) {
     height: 120px;
     padding: 10px 12px;
+  }
+  
+  @media (max-width: 480px) {
+    height: 100px;
+    padding: 9px 10px;
+    font-size: 13px;
+    border-radius: 6px;
+  }
+  
+  @media (max-width: 360px) {
+    height: 90px;
+    padding: 8px;
+    font-size: 12px;
   }
 `;
 
@@ -178,28 +252,89 @@ const SubmitButton = styled.button`
     float: none;
     padding: 12px 24px;
   }
+  
+  @media (max-width: 480px) {
+    padding: 10px 0;
+    font-size: 14px;
+    border-radius: 40px;
+    box-shadow: 0 3px 10px rgba(253, 187, 48, 0.3);
+    
+    &:active {
+      transform: translateY(0);
+      background-color: #f5b21c;
+    }
+  }
+  
+  @media (max-width: 360px) {
+    padding: 9px 0;
+    font-size: 13px;
+    border-radius: 30px;
+  }
 `;
 
 const Contacto = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Detectar si es dispositivo móvil
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 480);
+    };
+    
+    // Verificación inicial
+    checkMobile();
+    
+    // Agregar listener para cambios de tamaño
+    window.addEventListener('resize', checkMobile);
+    
+    // Limpiar listener
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Aquí puedes agregar la lógica para enviar el formulario
+    alert("Mensaje enviado con éxito!");
+  };
+  
   return (
     <ContactsSection id="contacts">
       <ContactTitle>Contacts</ContactTitle>
       <Underline />
       <FormWrapper>
-        <form>
+        <form onSubmit={handleSubmit}>
           <FormGroup>
             <Label htmlFor="name">Name</Label>
-            <Input type="text" id="name" name="name" required />
+            <Input 
+              type="text" 
+              id="name" 
+              name="name" 
+              required 
+              placeholder={isMobile ? "Tu nombre" : ""}
+              autoComplete="name"
+            />
           </FormGroup>
           
           <FormGroup>
             <Label htmlFor="email">Email</Label>
-            <Input type="email" id="email" name="email" required />
+            <Input 
+              type="email" 
+              id="email" 
+              name="email" 
+              required 
+              placeholder={isMobile ? "ejemplo@correo.com" : ""}
+              autoComplete="email"
+            />
           </FormGroup>
           
           <FormGroup>
             <Label htmlFor="message">Message</Label>
-            <Textarea id="message" name="message" required />
+            <Textarea 
+              id="message" 
+              name="message" 
+              required 
+              placeholder={isMobile ? "Escribe tu mensaje aquí..." : ""}
+            />
           </FormGroup>
           
           <SubmitButton type="submit">Send</SubmitButton>

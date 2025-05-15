@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram } from "react-icons/fa";
 
 const FooterContainer = styled.footer`
@@ -12,7 +13,14 @@ const FooterContainer = styled.footer`
   @media (max-width: 768px) {
     padding: 50px 20px;
   }
-
+  
+  @media (max-width: 480px) {
+    padding: 40px 16px;
+  }
+  
+  @media (max-width: 360px) {
+    padding: 30px 12px;
+  }
 `;
 
 const FooterContent = styled.div`
@@ -35,7 +43,17 @@ const SocialIcons = styled.div`
     gap: 24px;
     margin-top: 22px;
   }
-
+  
+  @media (max-width: 480px) {
+    gap: 20px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+  }
+  
+  @media (max-width: 360px) {
+    gap: 18px;
+    margin-top: 15px;
+  }
 `;
 
 const IconLink = styled.a`
@@ -64,6 +82,27 @@ const IconLink = styled.a`
     width: 34px;
     height: 34px;
   }
+  
+  @media (max-width: 480px) {
+    font-size: 24px;
+    width: 44px;
+    height: 44px;
+    
+    &:hover {
+      transform: none;
+    }
+    
+    &:active {
+      color: #fdbb30;
+      transform: scale(1.1);
+    }
+  }
+  
+  @media (max-width: 360px) {
+    font-size: 22px;
+    width: 40px;
+    height: 40px;
+  }
 `;
 
 const Copyright = styled.div`
@@ -80,29 +119,76 @@ const Copyright = styled.div`
   @media (max-width: 768px) {
     margin-top: 25px;
   }
+  
+  @media (max-width: 480px) {
+    margin-top: 22px;
+    font-size: 12px;
+  }
+  
+  @media (max-width: 360px) {
+    margin-top: 18px;
+  }
 `;
 
 const Footer = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 480);
+    };
+    
+    // Verificación inicial
+    checkMobile();
+    
+    // Agregar listener para cambios de tamaño
+    window.addEventListener('resize', checkMobile);
+    
+    // Limpiar listener
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
   return (
     <FooterContainer>
       <FooterContent>
         <SocialIcons>
-          <IconLink href="https://github.com" target="_blank" aria-label="GitHub">
+          <IconLink 
+            href="https://github.com" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            aria-label="GitHub"
+          >
             <FaGithub />
           </IconLink>
-          <IconLink href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
+          <IconLink 
+            href="https://linkedin.com" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            aria-label="LinkedIn"
+          >
             <FaLinkedin />
           </IconLink>
-          <IconLink href="https://twitter.com" target="_blank" aria-label="Twitter">
+          <IconLink 
+            href="https://twitter.com" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            aria-label="Twitter"
+          >
             <FaTwitter />
           </IconLink>
-          <IconLink href="https://instagram.com" target="_blank" aria-label="Instagram">
+          <IconLink 
+            href="https://instagram.com" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            aria-label="Instagram"
+          >
             <FaInstagram />
           </IconLink>
         </SocialIcons>
 
         <Copyright>
           David Santiago © {new Date().getFullYear()}
+          {isMobile && <div style={{ marginTop: '8px' }}>Todos los derechos reservados</div>}
         </Copyright>
       </FooterContent>
     </FooterContainer>
