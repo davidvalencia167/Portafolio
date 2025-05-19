@@ -1,3 +1,4 @@
+// AboutImage.jsx
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import davidImg from "../../assets/david.png";

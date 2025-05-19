@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import davidImg from "../../assets/david.png";
-import yellowBgUrl from "../../assets/yellow-bg.svg";
 
-// Desktop Container - hidden on mobile
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
