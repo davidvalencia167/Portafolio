@@ -1,21 +1,37 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
 import davidImg from "../../assets/david.png";
+import yellowBgUrl from "../../assets/yellow-bg.svg";
 
+// Desktop Container - hidden on mobile
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   overflow: hidden;
+  position: relative;
+  height: 877px;
+  
+  @media (max-width: 1200px) {
+    height: 700px;
+  }
+  
+  @media (max-width: 992px) {
+    height: 877px;
+  }
+  
+  @media (max-width: 768px) {
+    height: 700px;
+  }
+  
+  @media (max-width: 576px) {
+    height: 400px;
+  }
   
   @media (max-width: 480px) {
-    margin-top: -20px;
-  }
-  
-  @media (max-width: 360px) {
-    margin-top: -30px;
+    display: none;
   }
 `;
+
 
 const BackgroundSection = styled.div`
   position: relative;
@@ -27,6 +43,7 @@ const BackgroundSection = styled.div`
   background-position: right center;
   background-repeat: no-repeat;
   height: 877px;
+  botton: 30px;
 
   @media (max-width: 1200px) {
     background-size: 80%;
@@ -47,18 +64,8 @@ const BackgroundSection = styled.div`
     height: 400px;
     background-size: 60% 100%;
   }
-
-  @media (max-width: 480px) {
-    height: 350px;
-    background-size: 70% 100%;
-    background-position: right bottom;
-  }
-
-  @media (max-width: 360px) {
-    height: 300px;
-    background-size: 80% 100%;
-  }
 `;
+
 
 const Content = styled.div`
   flex: 1;
@@ -98,50 +105,59 @@ const DavidImage = styled.img`
     height: 315px;
     left: 75%;
   }
+`;
 
+const MobileImage = styled.img`
+  display: none;
+  
   @media (max-width: 480px) {
-    width: 160px;
-    height: 250px;
-    left: 70%;
-    top: 50%;
+    display: block;
+    position: absolute;
+    top: 70px;
+    right: 15px;
+    width: 180px;
+    height: auto;
+    max-height: 65vh;
+    object-fit: contain;
+    z-index: 1;
+    pointer-events: none;
   }
-
+  
+  @media (max-width: 400px) {
+    width: 165px;
+    right: 10px;
+    top: 65px;
+  }
+  
   @media (max-width: 360px) {
-    width: 130px;
-    height: 200px;
-    left: 68%;
+    width: 145px;
+    right: 8px;
+    top: 55px;
   }
 `;
 
 const Imagen = () => {
-  const [isMobile, setIsMobile] = useState(false);
-  
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 480);
-    };
-    
-    // Check initially
-    checkMobile();
-    
-    // Add resize listener
-    window.addEventListener('resize', checkMobile);
-    
-    // Clean up
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-  
   return (
-    <Container>
-      <BackgroundSection>
-        <DavidImage 
-          src={davidImg} 
-          alt="David" 
-          loading="lazy"
-        />
-        <Content/>
-      </BackgroundSection>
-    </Container>
+    <>
+      {/* Versión de escritorio */}
+      <Container>
+        <BackgroundSection>
+          <DavidImage 
+            src={davidImg} 
+            alt="David" 
+            loading="lazy"
+          />
+          <Content/>
+        </BackgroundSection>
+      </Container>
+      
+      {/* Versión móvil */}
+      <MobileImage 
+        src={davidImg} 
+        alt="David" 
+        loading="lazy"
+      />
+    </>
   );
 };
 

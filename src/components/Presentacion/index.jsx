@@ -18,16 +18,28 @@ const PresentacionWrapper = styled.section`
 
   @media (max-width: 768px) {
     padding: 140px 30px;
+  }  @media (max-width: 480px) {
+    position: relative;
+    padding: 100px 0 40px 20px;
+    height: auto;
+    min-height: 55vh;
+    width: 60%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-left: 0;
+    z-index: 2;
   }
   
-  @media (max-width: 480px) {
-    padding: 120px 20px;
-    justify-content: flex-start;
-    padding-top: 100px;
+  @media (max-width: 400px) {
+    padding: 95px 0 40px 18px;
+    width: 62%;
+    min-height: 53vh;
   }
   
   @media (max-width: 360px) {
-    padding: 100px 16px;
+    padding: 90px 0 40px 16px;
+    width: 65%;
+    min-height: 50vh;
   }
 `;
 
@@ -44,10 +56,10 @@ const Role = styled.span`
     font-size: 16px;
     margin-bottom: 12px;
   }
-  
-  @media (max-width: 480px) {
+    @media (max-width: 480px) {
     font-size: 14px;
     margin-bottom: 10px;
+    align-self: flex-start;
   }
 `;
 
@@ -66,9 +78,10 @@ const Title = styled.h1`
   @media (max-width: 768px) {
     font-size: 32px;
   }
-  
-  @media (max-width: 480px) {
+    @media (max-width: 480px) {
     font-size: 28px;
+    text-align: left;
+    align-self: flex-start;
   }
   
   @media (max-width: 360px) {
@@ -92,16 +105,17 @@ const Description = styled.p`
     font-size: 15px;
     max-width: 300px;
   }
-  
-  @media (max-width: 480px) {
-    font-size: 14px;
-    max-width: 100%;
+    @media (max-width: 480px) {
+    font-size: 13px;
+    max-width: 95%;
     margin: 16px 0;
+    text-align: left;
   }
   
   @media (max-width: 360px) {
-    font-size: 13px;
+    font-size: 12px;
     margin: 12px 0;
+    max-width: 100%;
   }
 `;
 
@@ -110,9 +124,17 @@ const ButtonGroup = styled.div`
   gap: 16px;
   
   @media (max-width: 480px) {
-    gap: 12px;
+    gap: 10px;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
     width: 100%;
+    margin-top: 14px;
+  }
+
+  @media (max-width: 360px) {
+    gap: 8px;
+    margin-top: 10px;
   }
 `;
 
@@ -135,7 +157,13 @@ const Button = styled.a`
     padding: 10px 18px;
     font-size: 14px;
     text-align: center;
-    display: block;
+    min-width: 100px;
+  }
+
+    @media (max-width: 360px) {
+    padding: 8px 14px;
+    font-size: 13px;
+    min-width: 90px;
   }
 `;
 
@@ -147,6 +175,21 @@ const ButtonPrimary = styled(Button)`
   &:hover {
     background-color: #f5b82e;
   }
+
+  @media (max-width: 480px) {
+    border-radius: 50px;
+    padding: 12px 22px;
+    font-size: 14px;
+    
+    &:active {
+      background-color: #f5b82e;
+    }
+  }
+  
+  @media (max-width: 360px) {
+    padding: 10px 18px;
+    font-size: 13px;
+  }
 `;
 
 const ButtonSecondary = styled(Button)`
@@ -156,6 +199,21 @@ const ButtonSecondary = styled(Button)`
 
   &:hover {
     background-color: #f0f0f0;
+  }
+
+  @media (max-width: 480px) {
+    border-radius: 50px;
+    padding: 10px 20px; /* Ajustamos el padding para compensar el borde */
+    font-size: 14px;
+    
+    &:active {
+      background-color: #f0f0f0;
+    }
+  }
+  
+@media (max-width: 360px) {
+    padding: 8px 16px;
+    font-size: 13px;
   }
 `;
 
